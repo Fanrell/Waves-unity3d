@@ -1,7 +1,8 @@
-﻿namespace Entities.Base
+﻿namespace Enums
 {
     public enum ElementalEnum
     {
+        None,
         Fire,
         Nature,
         Water,

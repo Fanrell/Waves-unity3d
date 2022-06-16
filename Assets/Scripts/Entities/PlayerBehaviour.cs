@@ -3,14 +3,8 @@ using UnityEngine;
 
 namespace Entities
 {
-    public class PlayerBehaviour : MonoBehaviour, IBaseEntity
+    public class PlayerBehaviour : BaseEntity
     {
-        public float HitPoints { get; set; }
-        public float Cooldown { get; set; }
-        public float Speed { get; set; }
-        public EntityStatusEnum Status { get; set; }
-        public ElementalEnum Elemental { get; set; }
-
         private float _horizontal;
         private float _vertical;
 
@@ -18,7 +12,7 @@ namespace Entities
         {
             _horizontal = 1;
             _vertical = 0;
-            Speed = 5;
+            speed = 5;
         }
 
         void Update()
@@ -28,19 +22,19 @@ namespace Entities
                 Move(_horizontal , _vertical);
         }
 
-        public void Move(float horizontal, float vertical)
+        public override void Move(float horizontal, float vertical)
         {
             var currentPosition = transform.position;
             var newPosition = currentPosition + new Vector3(horizontal, vertical);
-            transform.position = Vector3.LerpUnclamped(currentPosition, newPosition, Time.deltaTime * Speed);
+            transform.position = Vector3.LerpUnclamped(currentPosition, newPosition, Time.deltaTime * speed);
         }
 
-        public void Attack()
+        public override void Attack()
         {
             throw new System.NotImplementedException();
         }
 
-        public void Death()
+        public override void Death()
         {
             throw new System.NotImplementedException();
         }

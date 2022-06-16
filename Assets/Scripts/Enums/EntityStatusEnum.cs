@@ -1,4 +1,4 @@
-﻿namespace Entities.Base
+﻿namespace Enums
 {
     public enum EntityStatusEnum
     {
