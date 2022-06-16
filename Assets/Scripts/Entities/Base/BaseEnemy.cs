@@ -28,5 +28,10 @@ namespace Entities.Base
         {
             throw new System.NotImplementedException();
         }
+
+        public override void Regeneration()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
