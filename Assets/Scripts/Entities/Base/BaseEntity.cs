@@ -23,5 +23,6 @@ namespace Entities.Base
         public abstract void Attack();
         public abstract void Death();
         public abstract void Regeneration();
+        public abstract void Rotate();
     }
 }

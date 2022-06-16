@@ -33,5 +33,10 @@ namespace Entities.Base
         {
             throw new System.NotImplementedException();
         }
+
+        public override void Rotate()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

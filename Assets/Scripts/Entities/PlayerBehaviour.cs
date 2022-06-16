@@ -8,6 +8,7 @@ namespace Entities
     {
         private float _horizontal;
         private float _vertical;
+        private int _rotate;
         private byte _speed;
         private float _stamina;
 
@@ -24,6 +25,7 @@ namespace Entities
             ReadInput();
             if(_horizontal != 0 || _vertical != 0)
                 Move(_horizontal , _vertical);
+            Rotate();
         }
 
         private void LateUpdate()
@@ -58,6 +60,11 @@ namespace Entities
             _stamina += (_speed - maxSpeed == 0 && _stamina < maxStamina ? .2f : 0f) * Time.deltaTime;
         }
 
+        public override void Rotate()
+        {
+            transform.rotation= Quaternion.Euler(new Vector3(0,0,_rotate));
+        }
+
         private void ReadInput()
         {
             _horizontal = Input.GetAxis("Horizontal");
@@ -65,6 +72,15 @@ namespace Entities
             _speed = (byte)(
                     (Input.GetButton($"Dash") && _stamina > 0.5 ? maxSpeed * 3 : maxSpeed * 1)
                 );
+            //TODO: Change input manager to use only two read input
+            if (Input.GetButton($"FireUp"))
+                _rotate = 0;
+            else if (Input.GetButton($"FireLeft"))
+                _rotate = 90;
+            else if (Input.GetButton($"FireRight"))
+                _rotate = 270;
+            else
+                _rotate = 180;
         }
     }
 }
