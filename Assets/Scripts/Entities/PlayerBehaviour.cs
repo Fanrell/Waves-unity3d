@@ -11,13 +11,14 @@ namespace Entities
         private int _rotate;
         private byte _speed;
         private float _stamina;
+        private byte _hitPoint;
 
         void Start()
         {
             _horizontal = 0;
             _vertical = 0;
+            _hitPoint = maxHitPoints;
             _stamina = maxStamina;
-            maxSpeed = 5;
         }
 
         void Update()
@@ -31,6 +32,8 @@ namespace Entities
         private void LateUpdate()
         {
             Regeneration();
+            if(_hitPoint <= 0)
+                Death();
         }
 
         public override void Move(float horizontal, float vertical)
@@ -50,9 +53,9 @@ namespace Entities
             throw new System.NotImplementedException();
         }
 
-        public override void Death()
+        public override void Death() // change to take DMG method
         {
-            throw new System.NotImplementedException();
+            Destroy(this.gameObject,Time.deltaTime); // trigger only when HP below or equal 0
         }
 
         public override void Regeneration()
@@ -81,6 +84,8 @@ namespace Entities
                 _rotate = 270;
             else
                 _rotate = 180;
+
+            _hitPoint -= Input.GetButton("Cancel") ? (byte)maxHitPoints : (byte)0;
         }
     }
 }

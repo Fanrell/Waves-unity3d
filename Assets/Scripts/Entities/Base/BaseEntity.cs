@@ -7,7 +7,7 @@ namespace Entities.Base
     public abstract class BaseEntity : MonoBehaviour
     {
         [FormerlySerializedAs("HitPoints")] 
-        public float maxHitPoints;
+        public byte maxHitPoints;
         [FormerlySerializedAs("Cooldown")] 
         public float maxCooldown;
         [FormerlySerializedAs("Speed")] 
