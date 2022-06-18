@@ -19,6 +19,8 @@ namespace Entities.Base
         [FormerlySerializedAs("Elemental")] 
         public ElementalEnum elemental;
 
+        public GameObject attack;
+
         public abstract void Move(float horizontal, float vertical);
         public abstract void Attack();
         public abstract void Death();

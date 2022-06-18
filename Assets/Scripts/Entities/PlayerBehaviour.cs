@@ -1,4 +1,5 @@
 using System;
+using Attacks;
 using Entities.Base;
 using UnityEngine;
 
@@ -6,12 +7,15 @@ namespace Entities
 {
     public class PlayerBehaviour : BaseEntity
     {
+        public GameObject bullet;
+        
         private float _horizontal;
         private float _vertical;
         private int _rotate;
         private byte _speed;
         private float _stamina;
         private byte _hitPoint;
+        private BaseBullet _baseBullet;
 
         void Start()
         {
@@ -19,6 +23,8 @@ namespace Entities
             _vertical = 0;
             _hitPoint = maxHitPoints;
             _stamina = maxStamina;
+            _baseBullet = attack.GetComponent(typeof(BaseBullet)) as BaseBullet;
+
         }
 
         void Update()
@@ -50,12 +56,14 @@ namespace Entities
 
         public override void Attack()
         {
-            throw new System.NotImplementedException();
+            _baseBullet.direction = transform.up;
+            _baseBullet.startPosition = transform.position;
+            Instantiate(attack, null, true);
         }
 
-        public override void Death() // change to take DMG method
+        public override void Death() //TODO change to take DMG method
         {
-            Destroy(this.gameObject,Time.deltaTime); // trigger only when HP below or equal 0
+            Destroy(this.gameObject,Time.deltaTime); //TODO trigger only when HP below or equal 0
         }
 
         public override void Regeneration()
@@ -77,13 +85,26 @@ namespace Entities
                 );
             //TODO: Change input manager to use only two read input
             if (Input.GetButton($"FireUp"))
+            {
                 _rotate = 0;
+                Attack();
+            }
             else if (Input.GetButton($"FireLeft"))
+            {
                 _rotate = 90;
+                Attack();
+            }
             else if (Input.GetButton($"FireRight"))
+            {
                 _rotate = 270;
-            else
+                Attack();
+            }
+            else if (Input.GetButton($"FireDown"))
+            {
                 _rotate = 180;
+                Attack();
+
+            }
 
             _hitPoint -= Input.GetButton("Cancel") ? (byte)maxHitPoints : (byte)0;
         }
